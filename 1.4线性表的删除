@@ -1,0 +1,26 @@
+#define ERROR 0
+#define OK 1
+#define MAXSIZE 20
+typedef int Status;
+typedef int ElemType;
+typedef struct {
+	ElemType data[MAXSIZE];
+	int length;
+} Sqlist;
+Status DeleteList(Sqlist *list,int i,ElemType *e) {
+	int k = 0;
+	if(list->length==0) {
+		return ERROR;
+	}
+	if(i<1||i>list->length) {
+		return ERROR;
+	}
+	*e = list->data[i-1];
+	if(i<list->length) {
+		for(k = i; k<list->length; k++) {
+			list->data[k-1] = list->data[k];
+		}
+	}
+	list->length--;
+	return OK;
+}
