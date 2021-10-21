@@ -1,0 +1,32 @@
+#include<stdio.h>
+#include<string.h>
+#include<stdlib.h>
+#define ERROR 1
+#define OK 0
+
+typedef int ElemType;
+typedef struct Node* LinkList;
+typedef struct Node {
+	ElemType data;
+	struct Node *Next;
+} Node;
+//删除第i个元素 
+int Delect(LinkList L,int i,ElemType *e)
+{
+	int j = 1;
+	LinkList p = L;
+	while(p->Next&&j<i)
+	{
+		p= p->Next;
+		++j;
+	}
+	if(!(p->Next)||j>i)
+	{
+		return ERROR;
+	}
+	LinkList q = p->Next;
+	p->Next = q->Next;
+	*e = q->data;
+	free(q);
+	return OK;
+}
