@@ -1,0 +1,8 @@
+typedef int ElemType;
+typedef struct Node* LinkList;
+typedef struct Node
+{
+	ElemType data;
+	struct Node *Next;
+}Node;
+
