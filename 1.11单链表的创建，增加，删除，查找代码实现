@@ -1,0 +1,80 @@
+#include<stdio.h>
+#include<stdlib.h>
+typedef int ElemType;
+typedef struct Node {
+	ElemType data;
+	struct Node* next;
+} LinkNode;
+void CreatList(LinkNode *L,ElemType a[],int n) {
+	LinkNode *s,*r;
+	r = L;
+	int i = 0;
+	for(i = 0; i<n; i++) {
+		s = (LinkNode*)malloc(sizeof(LinkNode));
+		s->data = a[i];
+		r->next = s;
+		r = s;
+	}
+	r->next = NULL;
+}
+void DispList(LinkNode *L) {
+	LinkNode *p = L->next;
+	while(p!=NULL) {
+		printf("%d ",p->data);
+		p = p->next;
+	}
+	printf("\n");
+}
+void InsertList(LinkNode* L,int n,int num) {
+	LinkNode *p = L->next;
+	for(; n-2>0; n--) {
+		p = p->next;
+	}
+	LinkNode* r;
+	r = (LinkNode*)malloc(sizeof(LinkNode));
+	r->data = num;
+	r->next  = p->next;
+	p->next = r;
+
+}
+void DelectList(LinkNode* L,int n) {
+	LinkNode *q = L->next;
+	for(; n-2>0; n--) {
+		q = q->next;
+	}
+	q->next = q->next->next;
+
+}
+int SearchList(LinkNode *L,int n) {
+	LinkNode *p = L->next;
+	int i = 1;
+	while(p) {
+		if(p->data == n) {
+			return i;
+		}
+		p = p->next;
+		i++;
+	}
+	return 0;
+	if(i = 10) {
+		return 0;
+	}
+	return i;
+}
+int main() {
+	LinkNode *L;
+	L = (LinkNode *)malloc(sizeof(LinkNode));
+	L->next = NULL;
+	ElemType a[10] = {1,2,3,4,5,6,7,8,9,10};
+	CreatList(L,a,10);
+	DispList(L);
+	InsertList(L,3,15);
+	DispList(L);
+	DelectList(L,2);
+	DispList(L);
+	int ret = SearchList(L,9);
+	printf("%d ",ret);
+	ret = SearchList(L,25);
+	printf("%d ",ret);
+	return 0;
+}
