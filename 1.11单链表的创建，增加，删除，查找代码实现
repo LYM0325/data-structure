@@ -42,7 +42,11 @@ void DelectList(LinkNode* L,int n) {
 	for(; n-2>0; n--) {
 		q = q->next;
 	}
-	q->next = q->next->next;
+	LinkNode* r;
+	r = q->next;
+	q->next = r->next;
+	free(r);
+	r = NULL; 
 
 }
 int SearchList(LinkNode *L,int n) {
