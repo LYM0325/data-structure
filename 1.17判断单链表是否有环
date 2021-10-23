@@ -1,0 +1,61 @@
+#include<stdio.h>
+typedef struct LinkList
+{
+	int data;
+	struct LinkList* Next;
+}LinkList;
+
+int Method1(LinkList L)
+{
+	int step1 = 1;
+	int step2 = 2;
+	LinkList p = L;
+	LinkList q = L;
+	while((p!=NULL)&&(q!=NULL)&&(q->Next!=NULL))
+	{
+		p = p->Next;
+		if(q->Next!=NULL)
+		{
+			q = q->Next->Next;
+		}
+		if(p == q)
+		{
+			return 1;
+		}
+	}
+	return 0;
+}
+int Method2(LinkList L)
+{
+	LinkList cur1 = L;
+	int pos1 = 0;
+	while(cur1)
+	{
+		LinkList cur2 = L;
+		int pos2 =0;
+		while(cur2)
+		{
+			if(cur2 == cur1)
+			{
+				if(pos1 == pos2)
+				{
+					break;
+				}
+				else
+				{
+					printf("%d ",pos2);
+					return 1;
+				}
+			}
+			cur2 = cur2->Next;
+			pos2++;
+		}
+		cur1 = cur1->Next;
+		pos1++;
+	}
+	return 0;
+}
+int main()
+{
+	return 0;
+}
