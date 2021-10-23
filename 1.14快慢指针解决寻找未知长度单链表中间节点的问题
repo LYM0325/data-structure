@@ -1,0 +1,16 @@
+/*快速找到未知长度单链表的中间节点*/
+/*利用快慢指针，一个指针加1 一个指针加2，当快指针指向最后一个节点时，慢指针刚好在中间节点*/
+Status GetMidNode(LinkList L,ElemType *e) {
+	LinkList search,mid;
+	mid = search = L;
+	while(search->next!=NULL) {
+		if(search->next->next!=NULL) {
+			search = search->next->next;
+			mid = mid->next;
+		} else {
+			search = search->next;
+		}
+	}
+	*e = mid->data;
+	return OK;
+}
