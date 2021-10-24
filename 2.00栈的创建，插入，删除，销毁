@@ -1,0 +1,54 @@
+#include<stdio.h>
+#include<stdlib.h>
+#define SIZE 100
+#define ADDSIZE 10
+typedef int ElemType;
+typedef struct {
+	ElemType *base;
+	ElemType *top;
+	int stackSize;
+} sqStack;
+//栈的创建
+void InitStack(sqStack *s) {
+	s->base = (ElemType *)malloc(SIZE*sizeof(ElemType));
+	if(!s->base)
+		exit(0);
+	s->top = s->base;
+	s->stackSize = SIZE;
+}
+//入栈操作
+void Push(sqStack *s,ElemType e) {
+	if(s->top - s->base >=s->stackSize) {
+		s->base = (ElemType *)realloc(s->base,(s->stackSize+ADDSIZE)*sizeof(ElemType));
+		if(!s->base)
+			exit(0);
+		s->top = s->base+s->stackSize;
+		s->stackSize =s->stackSize + ADDSIZE;
+	}
+	*(s->top) = e;
+	s->top++;
+
+}
+//出栈操作
+int Pop(sqStack *s,ElemType *e) {
+	if(s->top == s->base) {
+		return 1;
+	}
+	*e = *(--(s->top));
+	return *e;
+}
+//清空栈
+void ClearStack(sqStack *s) {
+	s->top = s->base;
+}
+//销毁一个栈
+void DestoryStack(sqStack *s)
+{
+	s->base = s->top;
+	free(s->base);
+	s->base = NULL;
+	s->stackSize = 0;
+ } 
+int main() {
+	return 0;
+}
