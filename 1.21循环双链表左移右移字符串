@@ -32,7 +32,9 @@ DualLinkList InitLinkList(DualLinkList L)
 	}
 	L->next->prior = p;
 	p->next = L->next;
-	return L; 
+	return L->next; 
+	free(L);
+	L = NULL;
 }
 
 DualLinkList sort(DualLinkList L,int i)
@@ -42,14 +44,14 @@ DualLinkList sort(DualLinkList L,int i)
 		do
 		{
 			L = L->next;
-		}while(--i);
+		}while(i--);
 	}
 	if(i<0)
 	{
 		do
 		{
 			L = L->prior; 
-		}while(++i);
+		}while(i++);
 	}
 	return L;
 }
