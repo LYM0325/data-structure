@@ -6,4 +6,30 @@ typedef struct DualNode
 	struct DualNode *prior;
 	struct DualNode *next;
 	
-}DualNode,*DuLinkList;
+}DualNode,*DualLinkList;
+DualLinkList InitLinkList(DualLinkList L)
+{
+	DualLinkList q,p;
+	int i = 0;
+	L = (DualLinkList)malloc(sizeof(DualNode));
+	if(!(L))
+	{
+		return L;
+	}
+	L->next = L->prior = NULL;
+	p = L;
+	for(i = 1;i<=26;i++)
+	{
+		q = (DualLinkList)malloc(sizeof(DualNode));
+		q->data = i;
+		q->prior = p;
+		q->next = p->next;
+		p->next = q;
+		p = q;
+	}
+	L->next->prior = p;
+	p->next = L->next;
+	return L->next; 
+	free(L);
+	L = NULL;
+}
