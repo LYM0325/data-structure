@@ -1,0 +1,51 @@
+#include<stdio.h>
+#include<stdlib.h>
+typedef struct LinkList {
+	int data;
+	struct LinkList* Next;
+} Node,*LinkList;
+LinkList  CreateLinkList(int n) {
+	LinkList head = NULL;
+	int i = 0;
+	LinkList s,r;
+	r = head;
+	for(i = 1; i<=n; i++) {
+		s = (LinkList)malloc(sizeof(Node));
+		if(head == NULL) {
+			head = s;
+			s->data = 1;
+		} else {
+			r->Next = s;
+			r->Next->data = i;
+		}
+		r = s;
+	}
+	r->Next = head;
+	return head;
+}
+void ola(LinkList p,int n) {
+	LinkList r = p;
+	int i = 0;
+	int j = 0;
+	for(i = 0; i<n; i++) {
+		for(j =0; j<n; j++) {
+			printf("%d ",r->data);
+			r = r->Next;
+		}
+		printf("\n");
+		r = r->Next;
+	}
+}
+int main() {
+	int input = 0;
+	do {
+		printf("请输入矩阵的大小，输入0时退出\n");
+		scanf("%d",&input);
+		if(input != 0) {
+			LinkList s = CreateLinkList(input);
+			ola(s,input);
+		}
+
+	} while(input);
+	return 0;
+}
