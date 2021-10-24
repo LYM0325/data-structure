@@ -1,0 +1,9 @@
+
+typedef int Elemtype;
+typedef struct DualNode
+{
+	Elemtype data;
+	struct DualNode *prior;
+	struct DualNode *next;
+	
+}DualNode,*DuLinkList;
