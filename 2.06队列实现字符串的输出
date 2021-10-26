@@ -1,0 +1,65 @@
+#include<stdio.h>
+#include<stdlib.h>
+typedef char Elemtype;
+typedef struct QNode {
+	Elemtype data;
+	struct QNode *next;
+} QNode,*QueuePtr;
+typedef struct {
+	QueuePtr front,rear;
+} LinkQueue;
+
+void InitQueue(LinkQueue *q) {
+	q->front = q->rear = (QueuePtr)malloc(sizeof(QNode));
+	if(!q->front) {
+		return;
+	}
+	q->front->next = NULL;
+}
+
+void InsertQueue(LinkQueue *q,Elemtype e) {
+	QueuePtr p;
+	p = (QueuePtr)malloc(sizeof(QNode));
+	if(p == NULL) {
+		exit(0);
+	}
+	p->data = e;
+	p->next =NULL;
+	q->rear->next = p;
+	q->rear = p;
+}
+
+void DeleteQueue(LinkQueue *q,Elemtype *e) {
+	QueuePtr p;
+	int i = 0;
+	do {
+		p = q->front->next;
+		printf("%c ",p->data);
+		q->front->next = p->next;
+	} while(q->rear == q->rear);
+	free(p);
+	p = NULL;
+}
+
+void DestoryQueue(LinkQueue *q) {
+	while(q->front) {
+		q->rear = q->front->next;
+		free(q->front);
+		q->front = q->rear;
+	}
+}
+
+int main() {
+	LinkQueue L;
+	Elemtype *e;
+	InitQueue(&L);
+	printf("请输入字符串：");
+	Elemtype c;
+	while(c != '#') {
+		scanf("%c",&c);
+		InsertQueue(&L,c);
+	}
+	DeleteQueue(&L,e);
+	DestoryQueue(&L);
+	return 0;
+}
