@@ -1,0 +1,48 @@
+#include<stdio.h>
+#include<stdlib.h>
+#define MAXSIZE 5
+
+typedef char Elemtype;
+typedef struct {
+	Elemtype *base;
+	int front;
+	int rear;
+} cycleQueue;
+
+void InitQueue(cycleQueue *q) {
+	q->base = (Elemtype*)malloc(MAXSIZE * sizeof(Elemtype));
+	if(!q->base)
+		exit(0);
+	q->front = q->rear = 0;
+}
+
+void InsertQueue(cycleQueue *q,Elemtype e) {
+	if((q->rear+1)%MAXSIZE == q->front) {
+		printf("队列溢出\n");
+		return;
+	}
+	q->base[q->rear] = e;
+	q->rear = (q->rear+1)%MAXSIZE;
+}
+
+void DeleteQueue(cycleQueue *q,Elemtype *e) {
+	do {
+		printf("%c ",q->base[q->front]);
+		q->front = (q->front+1)%MAXSIZE;
+	} while(q->front!=q->rear);
+	if(q->front == q->rear) {
+		printf("队列已经被清空了\n");
+	}
+}
+
+int  main() {
+	cycleQueue L;
+	Elemtype c,*e;
+	InitQueue(&L);
+	while(c!='#') {
+		scanf("%c",&c);
+		InsertQueue(&L,c);
+	}
+	DeleteQueue(&L,e);
+	return 0 ;
+}
