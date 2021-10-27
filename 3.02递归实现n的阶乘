@@ -1,0 +1,14 @@
+#include<stdio.h>
+int recursion(int n)
+{
+	if(n == 0)
+		return 1;
+	else
+		return n*recursion(n-1);
+}
+int main()
+{
+	int i = recursion(3);
+	printf("%d ",i);
+	return 0;
+}
