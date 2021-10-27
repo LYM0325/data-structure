@@ -16,3 +16,15 @@ int main() {
 	}while(a!='#');
 	return 0;
 }
+/////////////////////////////////////
+void recursion(char*p ,int i) {
+	if(p[i+1] != '\0')
+		recursion(p,i+1);
+	printf("%c ",p[i]);
+}
+int main() {
+	char c[10];
+	gets(c);
+	recursion(c,0);
+	return 0;
+}
