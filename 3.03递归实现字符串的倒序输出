@@ -1,0 +1,18 @@
+#include<stdio.h>
+void recursion(char a) {
+
+	if(a!='#') {
+		scanf("%c",&a);
+		recursion(a);
+	}
+	if(a!='#')
+		printf("%c ",a);
+}
+int main() {
+	char a;
+	do {
+		scanf("%c",&a);
+		recursion(a);
+	}while(a!='#');
+	return 0;
+}
