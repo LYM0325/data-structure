@@ -26,7 +26,3 @@ typedef struct
 	CTBox nodes[MAXSIZE];  //节点数组 
 	int r,n;               //根的位置和节点数 
 }Tree;
-int main()
-{
-	return 0;
- } 
