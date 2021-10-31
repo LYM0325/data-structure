@@ -1,8 +1,0 @@
-//二叉链表
- 
-typedef int Elemtype;
-typedef struct BiTNode
-{
-	Elemtype data;
-	struct BiTNode *lchild,*rchild;
-}BiTNode,*BiTree;
