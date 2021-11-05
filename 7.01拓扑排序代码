@@ -1,0 +1,63 @@
+#include<stdio.h>
+#include<stdlib.h> 
+#define MAXVEX 65535
+#define OK 0
+#define ERROR 1
+//边表结点声明
+typedef struct EdgeNode {
+	int adjvex;
+	struct EdgeNode *next;
+} EdgeNode;
+//顶点表结点声明
+typedef struct VertexNode {
+	int in;
+	int data;
+	EdgeNode *firstedge;
+} VertexNode,AdjList[MAXVEX];
+
+typedef struct {
+	AdjList adjList;
+	int numVertexes,numEdges;
+} graphAdjList,*GraphAdjList;
+//拓扑排序算法
+//若GL无回路，则输出拓扑排序序列并返回OK，否则返回ERROR
+int TopologicalSort(GraphAdjList GL) {
+	EdgeNode *e;
+	int i,k,gettop;
+	int top = 0;
+	int count = 0;
+	int *stack;
+
+	stack = (int *)malloc(GL->numVertexes * sizeof(int));
+
+	for(i = 0; i<GL->numVertexes; i++) {
+		if(0 == GL->adjList[i].in) {
+			stack[++top] = i;
+		}
+	}
+
+	while(0 != top) {
+		gettop = stack[top--];
+		printf("%d ->",GL->adjList[gettop].data);
+		count++;
+
+		for(e = GL->adjList[gettop].firstedge; e; e =e->next) {
+			k = e->adjvex;
+			if(!(--GL->adjList[k].in)) {
+				stack[++top] = k;
+			}
+		}
+	}
+	if(count < GL->numVertexes)
+	{
+		return ERROR;
+	}
+	else
+	{
+		return OK;
+	}
+}
+int main()
+{
+	return 0;
+}
