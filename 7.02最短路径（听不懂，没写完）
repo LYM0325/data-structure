@@ -1,0 +1,81 @@
+#include<stdio.h>
+#include<stdlib.h>
+#define MAXVEX 65535
+#define OK 0
+#define ERROR 1
+//边表结点声明
+typedef struct EdgeNode {
+	int adjvex;
+	struct EdgeNode *next;
+} EdgeNode;
+//顶点表结点声明
+typedef struct VertexNode {
+	int in;
+	int data;
+	EdgeNode *firstedge;
+} VertexNode,AdjList[MAXVEX];
+
+typedef struct {
+	AdjList adjList;
+	int numVertexes,numEdges;
+} graphAdjList,*GraphAdjList;
+
+int *etv,*ltv;
+int *stack2;//用于存储拓扑序列的栈
+int top2; //用于stack2的栈顶指针
+
+int TopologicalSort(GraphAdjList GL) {
+	EdgeNode *e;
+	int i,k,gettop;
+	int top = 0;//用于栈指针下标索引
+	int count = 0;//用于统计输出的顶点个数
+	int *stack;//用于存储入度为0的顶点
+
+	stack = (int *)malloc(GL->numVertexes * sizeof(int));
+
+	for(i = 0; i<GL->numVertexes; i++) {
+		if(0 == GL->adjList[i].in) {
+			stack[++top] = i;//将度为0的顶点下标入栈
+		}
+	}
+
+	top = 0;
+	etv = (int *)malloc(GL->numVertexes*sizeof(int));
+	for(i = 0; i<GL->numVertexes; i++) {
+		etv[i] = 0;
+	}
+	stack2 = (int *)malloc(GL->numVertexes * sizeof(int));
+	
+	while(0 != top) {
+		gettop = stack[top--];//出栈
+//		printf("%d ->",GL->adjList[gettop].data);
+		stack2[++top2] = gettop;
+		count++;
+
+		for(e = GL->adjList[gettop].firstedge; e; e =e->next) {
+			k = e->adjvex;
+			//将k号顶点邻接点的入度-1，因为他的前驱已经消除
+			//接着判断-1后入度是否为0，如果为0则也入栈
+			if(!(--GL->adjList[k].in)) {
+				stack[++top] = k;
+			}
+			if((etv[gettop]+e->adjvex)>etv[k])
+			{
+				etv[k] = etv[gettop] + e->adjvex;
+			}
+		}
+	}
+	if(count < GL->numVertexes) { //如果count小于顶点数，说明存在环
+		return ERROR;
+	} else {
+		return OK;
+	}
+}
+void CriticalPath(GraphAdjList GL){
+	EdgeNode *e;
+	int i,gettop,k,j;
+	int ete,lte;	
+}
+int main() {
+	return 0;
+}
